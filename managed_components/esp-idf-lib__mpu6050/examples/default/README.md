@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# self-balancing-robot
-Attempt of creating a self balancing robot
-=======
 # Example for `mpu6050` driver
 
 ## What it does
@@ -76,4 +72,3 @@ I (14451) mpu6050_test: Acceleration: x=-15864   y=-264   z=188
 I (14461) mpu6050_test: Temperature:    33
 I (15461) mpu6050_test: **********************************************************************
 ```
->>>>>>> fa9dfcf (first commit, testing some MPU and PWM)
