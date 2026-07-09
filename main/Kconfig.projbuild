@@ -37,3 +37,41 @@ menu "MPU6050 Example Configuration"
             GPIO number for I2C Master data line.
      
 endmenu
+
+menu "Robot configuration"
+    menu "Motor 1"
+        config MOTOR1_PWM_GPIO
+            int "PWM_GPIO"
+            default 18
+
+        config MOTOR1_DIR_GPIO
+            int "DIR_GPIO"
+            default 19
+
+        config MOTOR1_ENCODER_A_YELLOW
+            int "ENCODER_A_YELLOW"
+            default 9
+
+        config MOTOR1_ENCODER_B_WHITE
+            int "ENCODER_B_WHITE"
+            default 15
+    endmenu
+
+    menu "Motor 2"
+           config MOTOR2_PWM_GPIO
+            int "PWM_GPIO"
+            
+
+        config MOTOR2_DIR_GPIO
+            int "DIR_GPIO"
+           
+
+        config MOTOR2_ENCODER_A_YELLOW
+            int "ENCODER_A_YELLOW"
+            
+
+        config MOTOR2_ENCODER_B_WHITE
+            int "ENCODER_B_WHITE"
+    endmenu
+
+endmenu

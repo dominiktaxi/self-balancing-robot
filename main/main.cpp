@@ -5,6 +5,8 @@
 #include <esp_log.h>
 #include <mpu6050.h>
 #include "timer.h"
+#include "imu-sensor.h"
+#include "motor.h"
 
 #ifdef CONFIG_EXAMPLE_I2C_ADDRESS_LOW
 #define ADDR MPU6050_I2C_ADDRESS_LOW
@@ -14,11 +16,11 @@
 
 static const char *TAG = "mpu6050_test";
 
-void mpu6050_test(void *pvParameters)
+extern "C" void mpu6050_test(void *pvParameters)
 {
-    mpu6050_dev_t dev = { 0 };
+    mpu6050_dev_t dev = { };
 
-    ESP_ERROR_CHECK(mpu6050_init_desc(&dev, ADDR, 0, CONFIG_EXAMPLE_SDA_GPIO, CONFIG_EXAMPLE_SCL_GPIO));
+    ESP_ERROR_CHECK( mpu6050_init_desc(&dev, ADDR, (i2c_port_t)0, (gpio_num_t)(CONFIG_EXAMPLE_SDA_GPIO), (gpio_num_t)CONFIG_EXAMPLE_SCL_GPIO) );
 
     while (1)
     {
@@ -55,25 +57,51 @@ void mpu6050_test(void *pvParameters)
     }
 }
 
-void app_main()
+extern "C" void app_main()
 {
     // task
-    pwm_init();
-    float x = 0;
-    int bigger = 0;
+    // pwm_init();
+    // float x = 0;
+    // int bigger = 0;
+    // int done = 0;
+    // gpio_set_direction(GPIO_NUM_19, GPIO_MODE_OUTPUT);
+    // gpio_set_level(GPIO_NUM_19, 0);
     // while(1)
     // {
-    //     if(!bigger) x += 0.01;
-    //     else x -= 0.01;
-    //     if(x > 0.9) bigger = 1;
-    //     if(x < 0.1) bigger = 0;
-    //     pwm_set(x);
-    //     vTaskDelay(pdMS_TO_TICKS(10));
-    //     printf("X: %f\n", x);
+    //     for(int i = 0; i < 100; i++)
+    //     {
+    //         pwm_set((float) (i * 0.01));
+    //         vTaskDelay(pdMS_TO_TICKS(1000));
+            
+    //     }
+    //     for(int i = 100; i > 0; i--)
+    //     {
+    //         pwm_set((float)(i * 0.01));
+    //         vTaskDelay(pdMS_TO_TICKS(1000));
+    //     }
+    //     done = !done;
+    //     if(done)
+    //     {
+    //         gpio_set_level(GPIO_NUM_19, 1);
+    //     }
+    //     else
+    //     {
+    //         gpio_set_level(GPIO_NUM_19, 0);
+    //     }
+    //     printf("done: %d\n", done);
     // }
-    // gpio_set_direction(5, GPIO_MODE_OUTPUT);
-    // gpio_set_level(5, 1);
-    ESP_ERROR_CHECK(i2cdev_init());
+    
+    
+    
+    // gpio_set_direction(GPIO_NUM_5, GPIO_MODE_OUTPUT);
+    // gpio_set_level(GPIO_NUM_5, 1);
+    // ESP_ERROR_CHECK(i2cdev_init());
 
-    xTaskCreate(mpu6050_test, "mpu6050_test", configMINIMAL_STACK_SIZE * 6, NULL, 5, NULL);
+    // xTaskCreate(mpu6050_test, "mpu6050_test", configMINIMAL_STACK_SIZE * 6, NULL, 5, NULL);
+
+    
+
+    static ImuSensor sensor;
+    sensor.init();
+    sensor.start_test();
 }
