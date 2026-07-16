@@ -20,17 +20,17 @@ void Robot::set_motor_pwm(Motor motor, uint8_t percentage)
     motor.set_pwm(percentage);
 }
 
-void Robot::switch_direction(Motor motor)
+void Robot::switch_direction(Motor& motor)
 {
     motor.switch_dir();
 }
 
-const Motor& Robot::motor1() const
+Motor& Robot::motor1()
 {
     return _motor1;
 }
 
-const Motor& Robot::motor2() const
+Motor& Robot::motor2()
 {
     return _motor2;
 }

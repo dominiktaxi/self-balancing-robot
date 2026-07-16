@@ -21,9 +21,11 @@ void Motor::switch_dir()
     if(_forward)
     {
         GpioController::state(_dir_pin, GpioController::STATE::HIGH);
+        printf("HIGH\n");
     }
     else
     {
+        printf("LOW\n");
         GpioController::state(_dir_pin, GpioController::STATE::LOW);
     }
     
