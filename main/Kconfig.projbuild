@@ -60,18 +60,19 @@ menu "Robot configuration"
     menu "Motor 2"
            config MOTOR2_PWM_GPIO
             int "PWM_GPIO"
-            
+            default 7
 
         config MOTOR2_DIR_GPIO
             int "DIR_GPIO"
-           
+           default 6
 
         config MOTOR2_ENCODER_A_YELLOW
             int "ENCODER_A_YELLOW"
-            
+            default 22
 
         config MOTOR2_ENCODER_B_WHITE
             int "ENCODER_B_WHITE"
+            default 23
     endmenu
 
 endmenu

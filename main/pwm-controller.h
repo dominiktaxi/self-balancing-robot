@@ -9,9 +9,10 @@ class PwmController
         CHANNEL0,
         CHANNEL1
     };
+    PwmController();
     static void ledc_init(void);
     void pwm_pin_init(uint8_t, PwmController::CHANNEL);
-    void pwm_set(float);
+    void pwm_set(uint8_t, PwmController::CHANNEL);
     private:
 
 };

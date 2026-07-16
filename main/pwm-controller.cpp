@@ -6,9 +6,9 @@
 #define LEDC_SPEED_MODE LEDC_LOW_SPEED_MODE
 #define LEDC_CHANNEL LEDC_CHANNEL_0
 
-void PwmController::ledc_init(void)
+PwmController::PwmController()
 {
-      ledc_timer_config_t timer = 
+       ledc_timer_config_t timer = 
         {
         .speed_mode = LEDC_SPEED_MODE,
         .duty_resolution = PWM_RESOLUTION,
@@ -18,12 +18,12 @@ void PwmController::ledc_init(void)
         };
 
     ESP_ERROR_CHECK(ledc_timer_config(&timer));
-
 }
+
 
 void PwmController::pwm_pin_init(uint8_t pin, PwmController::CHANNEL CHANNEL)
 {
-    ledc_channel_t chnl;
+    ledc_channel_t chnl = LEDC_CHANNEL_0;
     switch(CHANNEL)
     {
         case PwmController::CHANNEL::CHANNEL0: chnl = LEDC_CHANNEL_0; break;
@@ -41,13 +41,19 @@ void PwmController::pwm_pin_init(uint8_t pin, PwmController::CHANNEL CHANNEL)
     ESP_ERROR_CHECK (ledc_channel_config(&channel));
 }
 
-void PwmController::pwm_set(float pwm_duty_percentage)
+void PwmController::pwm_set(uint8_t pwm_duty_percentage, PwmController::CHANNEL CHANNEL)
 {
+    ledc_channel_t chnl = LEDC_CHANNEL_0;
+    switch(CHANNEL)
+    {
+        case PwmController::CHANNEL::CHANNEL0: chnl = LEDC_CHANNEL_0; break;
+        case PwmController::CHANNEL::CHANNEL1: chnl = LEDC_CHANNEL_1; break;
+    }
     if(pwm_duty_percentage > 100) {pwm_duty_percentage = 100;}
     else if(pwm_duty_percentage < 0) {pwm_duty_percentage = 0;}
 
     int resolution = (1 << PWM_RESOLUTION) - 1;
-    int duty = (int)(pwm_duty_percentage / 100) * resolution;
-    ESP_ERROR_CHECK(ledc_set_duty(LEDC_SPEED_MODE, LEDC_CHANNEL, duty));
-    ESP_ERROR_CHECK(ledc_update_duty(LEDC_SPEED_MODE, LEDC_CHANNEL));
+    int duty = (int)((pwm_duty_percentage * resolution) / 100.f);
+    ESP_ERROR_CHECK(ledc_set_duty(LEDC_SPEED_MODE, chnl, duty));
+    ESP_ERROR_CHECK(ledc_update_duty(LEDC_SPEED_MODE, chnl));
 }

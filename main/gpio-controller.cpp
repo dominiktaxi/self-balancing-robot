@@ -26,7 +26,7 @@ void GpioController::state(uint8_t pin, GpioController::STATE MODE)
 
 
 //PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//
-gpio_mode_t gpioDirection(GpioController::DIRECTION direction)
+gpio_mode_t GpioController::gpioDirection(GpioController::DIRECTION direction)
 {
     switch(direction)
     {
@@ -69,6 +69,10 @@ gpio_num_t GpioController::pinNumber (uint8_t pin)
         case 19: return GPIO_NUM_19; break;
         case 20: return GPIO_NUM_20; break;
         case 21: return GPIO_NUM_21; break;
+        case 22: return GPIO_NUM_22; break;
+        case 23: return GPIO_NUM_23; break;
+        case 24: return GPIO_NUM_24; break;
+        case 25: return GPIO_NUM_25; break;
     }
     return GPIO_NUM_NC;
 }
