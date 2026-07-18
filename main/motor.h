@@ -1,6 +1,7 @@
 #pragma once
 #include <inttypes.h>
 #include "pwm-controller.h"
+#include "pcnt-controller.h"
 class Motor
 {
     public:
@@ -17,4 +18,5 @@ class Motor
     uint8_t _encoder_A_pin;
     uint8_t _encoder_B_pin;
     PwmController::CHANNEL _channel;
+    //PcntController _pcntController;
 };

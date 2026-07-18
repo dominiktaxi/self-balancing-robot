@@ -18,7 +18,7 @@ class GpioController
 
     static void setDirection(uint8_t, GpioController::DIRECTION);
     static void state(uint8_t, GpioController::STATE);
-    private:
     static gpio_num_t pinNumber(uint8_t);
     static gpio_mode_t gpioDirection(GpioController::DIRECTION);
+    private:
 };

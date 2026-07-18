@@ -3,7 +3,8 @@
 #include "gpio-controller.h"
 
 Motor::Motor(uint8_t dir_pin, uint8_t pwm_pin, uint8_t encoder_A_pin, uint8_t encoder_B_pin, PwmController::CHANNEL channel) : 
-_forward(true), _dir_pin(dir_pin), _pwm_pin(pwm_pin), _encoder_A_pin(encoder_A_pin), _encoder_B_pin(encoder_B_pin), _channel(channel)
+_forward(true), _dir_pin(dir_pin), _pwm_pin(pwm_pin), _encoder_A_pin(encoder_A_pin), _encoder_B_pin(encoder_B_pin), 
+_channel(channel) //_pcntController(_encoder_A_pin)
 {
     GpioController::setDirection(_dir_pin, GpioController::DIRECTION::OUTPUT);
     GpioController::setDirection(_pwm_pin, GpioController::DIRECTION::OUTPUT);

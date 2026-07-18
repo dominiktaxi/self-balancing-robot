@@ -25,7 +25,6 @@ void GpioController::state(uint8_t pin, GpioController::STATE MODE)
 
 
 
-//PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//        //PRIVATE//
 gpio_mode_t GpioController::gpioDirection(GpioController::DIRECTION direction)
 {
     switch(direction)
