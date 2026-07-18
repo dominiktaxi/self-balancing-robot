@@ -7,6 +7,7 @@ class Robot
     Robot();
     void set_motor_pwm(Motor, uint8_t);
     void switch_direction(Motor&);
+    void start_rpm_task();
     Motor& motor1();
     Motor& motor2();
     private:

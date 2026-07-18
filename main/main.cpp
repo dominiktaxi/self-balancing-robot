@@ -12,23 +12,25 @@ extern "C" void app_main()
     // sensor.init();
     // sensor.start_test();
     Robot robot;
+    robot.start_rpm_task();
     PcntController pcntController(CONFIG_MOTOR1_ENCODER_A_YELLOW);
     while(true)
     {
-        for(uint8_t i = 0; i < 100; i++)
+        for(int i = 0; i <= 70; i+=10)
         {
-           vTaskDelay(pdMS_TO_TICKS(5));
+           vTaskDelay(pdMS_TO_TICKS(100));
            robot.set_motor_pwm(robot.motor1(), i);
-        printf("\033[2J\033[H");
-        printf("pulses: %d", pcntController.get_pulses());
+           printf("RPM: %f\n", robot.motor1().rpm());
         }
-        for(uint8_t i = 100; i > 0; i--)
+        for(int i = 70; i >= 0; i--)
         {
-            vTaskDelay(pdMS_TO_TICKS(20));
+            vTaskDelay(pdMS_TO_TICKS(10));
             robot.set_motor_pwm(robot.motor1(), i);
-        printf("\033[2J\033[H");
-        printf("pulses: %d", pcntController.get_pulses());
         }
+        vTaskDelay(pdMS_TO_TICKS(500));
+        printf("pulses stall: %d\n", pcntController.get_pulses());
         robot.switch_direction(robot.motor1());
+        printf("int size: %zu\n", sizeof(int));
+        
     }
 }

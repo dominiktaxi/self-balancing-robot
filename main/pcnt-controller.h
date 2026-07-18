@@ -5,7 +5,8 @@ class PcntController
 {
     public:
     PcntController(uint8_t);
-    int get_pulses();
+    int get_pulses() const;
+    void clear_pulses();
     private:
     uint8_t _pin;
     pcnt_unit_handle_t _pcnt_unit;

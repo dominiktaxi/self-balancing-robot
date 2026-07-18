@@ -25,6 +25,12 @@ void Robot::switch_direction(Motor& motor)
     motor.switch_dir();
 }
 
+void Robot::start_rpm_task()
+{
+    _motor1.start_rpm_task();
+}
+
+
 Motor& Robot::motor1()
 {
     return _motor1;
