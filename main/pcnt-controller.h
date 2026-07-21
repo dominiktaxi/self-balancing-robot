@@ -4,11 +4,12 @@
 class PcntController
 {
     public:
-    PcntController(uint8_t);
+    PcntController(uint8_t, uint8_t);
     int get_pulses() const;
     void clear_pulses();
     private:
-    uint8_t _pin;
+    uint8_t _pinA;
+    uint8_t _pinB;
     pcnt_unit_handle_t _pcnt_unit;
     pcnt_channel_handle_t _pcnt_channel;
 };

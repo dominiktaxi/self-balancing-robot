@@ -14,10 +14,10 @@ class Motor
     PcntController& pcntController();
     double& rpm();
     int64_t& previous_time_us();
+    
+    
     private:
-    static void update_rpm_task(void*);
-
-
+    static void update_rpm_task_A(void*);
     PwmController _pwmController;
     bool _forward;
     uint8_t _dir_pin;

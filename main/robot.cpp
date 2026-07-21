@@ -28,6 +28,7 @@ void Robot::switch_direction(Motor& motor)
 void Robot::start_rpm_task()
 {
     _motor1.start_rpm_task();
+    _motor2.start_rpm_task();
 }
 
 

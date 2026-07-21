@@ -9,7 +9,7 @@
 
 Motor::Motor(uint8_t dir_pin, uint8_t pwm_pin, uint8_t encoder_A_pin, uint8_t encoder_B_pin, PwmController::CHANNEL channel) : 
 _forward(true), _dir_pin(dir_pin), _pwm_pin(pwm_pin), _encoder_A_pin(encoder_A_pin), _encoder_B_pin(encoder_B_pin), 
-_rpm(0), _channel(channel), _pcntController(encoder_A_pin), _previous_time_us(0)
+_rpm(0), _channel(channel), _pcntController(encoder_A_pin, encoder_B_pin), _previous_time_us(0)
 {
     GpioController::setDirection(_dir_pin, GpioController::DIRECTION::OUTPUT);
     GpioController::setDirection(_pwm_pin, GpioController::DIRECTION::OUTPUT);
@@ -47,7 +47,7 @@ uint8_t Motor::pwm_pin()
 
 void Motor::start_rpm_task()
 {
-    xTaskCreate(update_rpm_task, "update_rpm_task", configMINIMAL_STACK_SIZE * 6, this, 5, NULL);
+    xTaskCreate(update_rpm_task_A, "update_rpm_task", configMINIMAL_STACK_SIZE * 6, this, 5, NULL);
 }
 
 PcntController& Motor::pcntController()
@@ -66,7 +66,7 @@ int64_t& Motor::previous_time_us()
 }
 
 //PRIVATE       //PRIVATE       //PRIVATE       //PRIVATE       //PRIVATE
-void Motor::update_rpm_task(void* parameter)
+void Motor::update_rpm_task_A(void* parameter)
 {
     Motor* motor = static_cast<Motor*>(parameter);
     while(true)
@@ -80,3 +80,4 @@ void Motor::update_rpm_task(void* parameter)
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
+
